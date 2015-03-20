@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BYT</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="title_section1">Tus proyectos</string>
+    <string name="title_section2">Todos los proyectos</string>
+
+    <string name="name">Usuario</string>
+    <string name="password">Constraseña</string>
+    <string name="btnBegin">Iniciar</string>
+    <string name="completeName">Nombre</string>
+    <string name="passwordComp">Contraseña</string>
+    <string name="correo">Corro electrónico</string>
+    <string name="localidad">Localidad</string>
+    <string name="pais">País</string>
+
+    <string name="wifi_connection">WIFI</string>
+    <string name="mobile_connection">MOBILE</string>
+    <string name="no_wifi_or_mobile">NO CONNECTION</string>
+    <string name="email">Email</string>
+    <string name="nickReg">Nick</string>
+
+    <string name="launch_register">Registro</string>
+    <string name="action_perfil">Perfil</string>
+    <string name="action_pencil">Editar</string>
+
+</resources>

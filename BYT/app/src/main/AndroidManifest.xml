@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="boost.hackathon.byt" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icono"
+        android:label="ByT"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".activities.CrearProyecto"
+            android:label="Crear Proyecto" />
+        <activity
+            android:name=".activities.MostrarProyecto"
+            android:label="Mostrar Proyecto" />
+        <activity
+            android:name=".activities.SeleccionarProyecto"
+            android:label="Seleccionar Proyecto" />
+        <activity
+            android:name=".activities.MostrarUsuario"
+            android:label="Mostrar Usuario" />
+
+        <activity
+            android:name=".Tutorial"
+            android:label="ByT" >
+
+
+
+        </activity>
+
+
+        <!--Julio-->
+        <activity
+            android:name=".activities.ProjectList"
+            android:label="Project List" />
+
+        <!--Guille-->
+        <activity
+            android:name=".activities.Login"
+            android:label="ByT" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.Registro"
+            android:label="Registro" />
+
+    </application>
+
+</manifest>

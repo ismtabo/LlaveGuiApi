@@ -1,0 +1,59 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
+    tools:context=".Login$PlaceholderFragment"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:hint="@string/name"
+        android:layout_height="0dp"
+        android:id="@+id/userLogin"
+        android:textSize="24dp"
+        android:gravity="center"
+        android:layout_weight="1" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:inputType="textPassword"
+        android:hint="@string/password"
+        android:id="@+id/passwordLogin"
+        android:textSize="24dp"
+        android:gravity="center"
+        android:layout_gravity="center_vertical" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2" />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:text="@string/btnBegin"
+        android:id="@+id/botonLogin"
+        android:textSize="24dp"
+        android:gravity="center"
+        android:background="#2FD5D5"
+        android:textColor="#FFF"/>
+
+</LinearLayout>
+
