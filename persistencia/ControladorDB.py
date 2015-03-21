@@ -23,11 +23,13 @@ class ControladorDB:
 		usr = self.dbApi.getUserByNick(jobt['nick'])
 		# TODO --Falta de implementación--
 		try:
+			print usr.getPasswd(),'-',jobt['passwd']
 			if usr.getPasswd() == jobt['passwd']:
 				return True
 			else:
 				return False
 		except:
+			print 'Algo salió mal'
 			return False
 
 	def setKeyUser(self,jobt):

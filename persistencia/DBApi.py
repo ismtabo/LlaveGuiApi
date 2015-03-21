@@ -31,6 +31,7 @@ class DBApi :
 		db = lite.connect(LOCALCWD+'/persistencia/keydb.db')
 		c = db.cursor()
 
-		row = c.execute('SELECT nick,passwd FROM users').fetchone()
+		row = c.execute('SELECT nick,passwd FROM users WHERE nick="{}"'.format(nick)).fetchone()
+		print row
 		db.close()
 		return Usuario(row[NICK],row[PASSWD])
