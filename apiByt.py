@@ -8,39 +8,38 @@ import clases
 
 controladora = clases.Controlador()
 
+# urls = (
+# 	'/registro/', 		'Registro',
+# 	'/login/', 			'Login',
+# 	'/getUsuario/', 	'GetUsuario',
+# 	'/getAllUsr/', 		'GetAllUsr',
+# 	'/setUsrImagen/', 	'SetUsrImagen',
+# 	'/getUsrImagen/', 	'GetUsrImagen',
+# )
 urls = (
-	'/registro/', 		'Registro',
-	'/login/', 			'Login',
-	'/nuevoPro/', 		'NuevoPro',
-	'/unirsePro/', 		'UnirsePro',
-	'/borrarPro/', 		'BorrarPro',
-	'/getUsuario/', 	'GetUsuario',
-	'/getProjecto/', 	'GetProjecto',
-	'/getAllUsr/', 		'GetAllUsr',
-	'/getAllPro/', 		'GetAllPro',
-	'/setUsrImagen/', 	'SetUsrImagen',
-	'/setProImagen/', 	'setProImagen',
-	'/getUsrImagen/', 	'GetUsrImagen',
-	'/getProImagen/', 	'GetProImagen'
-)
+	'/login/', 'Login',
+	'/takeKey/', 'setKeyUser',
+	'/leaveKey/', 'setKeyUser'
+	)
 
 app = web.application(urls, globals())
 
-class Registro :
-	def POST (self) :
-		jobj = json.loads(web.data())
-		dicc = {}
-		aux = controladora.nuevoUser(jobj)
-		if aux[0]  == True:
-			dicc["resultado"] = True
-		else :
-			dicc["resultado"] = False
-			dicc["error"] = aux[1]
+# class Registro :
+# 	def POST (self) :
+# 		jobj = json.loads(web.data())
+# 		dicc = {}
+# 		aux = controladora.nuevoUser(jobj)
+# 		if aux[0]  == True:
+# 			dicc["resultado"] = True
+# 		else :
+# 			dicc["resultado"] = False
+# 			dicc["error"] = aux[1]
 
-		return json.dumps(dicc)
+# 		return json.dumps(dicc)
 
 class Login :
 	def POST (self) :
+		# TODO --Falta de implementación--
 		jobj = json.loads(web.data())
 		dicc = {}
 
@@ -53,67 +52,30 @@ class Login :
 		print dicc
 		return json.dumps(dicc)
 
-class NuevoPro :
+class setKeyUser :
 	def POST (self) :
 		jobj = json.loads(web.data())
-		dicc = {}
+		controladora.setKeyUser(jobj)
 
-		if controladora.nuevoProjecto(jobj) == True :
-			dicc["resultado"] = True
-		else :
-			dicc["resultado"] = False
+# class GetUsuario :
+# 	def POST (self) :
+# 		jobj = json.loads(web.data())
+# 		return json.dumps(controladora.getUserInfo(jobj))
 
-		return json.dumps(dicc)
+# class GetAllUsr :
+# 	def POST (self) :
+# 		return json.dumps(controladora.getAllUserNick())
 
-class UnirsePro :
-	def POST (self) :
-		jobj = json.loads(web.data())
-		controladora.addUserToProject(jobj)
+# class SetUsrImagen :
+# 	def POST (self) :
+# 		jobj = json.loads(web.data())
+# 		controladora.setImagenUsuario(jobj)
 
-class BorrarPro :
-	def POST (self) :
-		jobj = json.loads(web.data())
-		controladora.removeProject(jobj)
-
-class GetUsuario :
-	def POST (self) :
-		jobj = json.loads(web.data())
-		return json.dumps(controladora.getUserInfo(jobj))
-
-class GetProjecto :
-	def POST (self) :
-		jobj = json.loads(web.data())
-		return json.dumps(controladora.getProjectInfo(jobj))
-
-class GetAllUsr :
-	def POST (self) :
-		return json.dumps(controladora.getAllUserNick())
-
-class GetAllPro :
-	def POST (self) :
-		return json.dumps(controladora.getAllProjectNombre())
-
-class SetUsrImagen :
-	def POST (self) :
-		jobj = json.loads(web.data())
-		controladora.setImagenUsuario(jobj)
-
-class SetProImagen :
-	def POST (self) :
-		jobj = json.loads(web.data())
-		controladora.setImagenProjecto(jobj)
-
-class GetUsrImagen :
-	def POST (self) :
-		jobj = json.loads(web.data())
-		web.header("Content-Type", "png")
-		return controladora.getImagenUsuario(jobj)
-
-class GetProImagen :
-	def POST (self) :
-		jobj = json.loads(web.data())
-		web.header("Content-Type", "png")
-		return controladora.getImagenProjecto(jobj)
+# class GetUsrImagen :
+# 	def POST (self) :
+# 		jobj = json.loads(web.data())
+# 		web.header("Content-Type", "png")
+# 		return controladora.getImagenUsuario(jobj)
 
 if __name__ == "__main__":
 	app.run()
