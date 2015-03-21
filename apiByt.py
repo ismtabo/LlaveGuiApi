@@ -4,9 +4,11 @@
 import sys
 import web
 import json
-import clases
+# import clases
+import persistencia
 
-controladora = clases.Controlador()
+# controladora = clases.Controlador()
+controladora = persistencia.ControladorDB()
 
 # urls = (
 # 	'/registro/', 		'Registro',
@@ -18,8 +20,9 @@ controladora = clases.Controlador()
 # )
 urls = (
 	'/login/', 'Login',
-	'/takeKey/', 'setKeyUser',
-	'/leaveKey/', 'setKeyUser'
+	'/take/', 'setKeyUser',
+	'/drop/', 'resetKeyUser',
+	'/who/', 'getUserKey'
 	)
 
 app = web.application(urls, globals())
@@ -38,6 +41,13 @@ app = web.application(urls, globals())
 # 		return json.dumps(dicc)
 
 class Login :
+	def OPTIONS (self) :
+		web.header('Access-Control-Allow-Origin',      '*')
+		web.header('Access-Control-Allow-Credentials', 'true')
+		web.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+		web.header("Access-Control-Allow-Methods", "GET, PUT, POST")
+		a = None
+
 	def POST (self) :
 		# TODO --Falta de implementación--
 		jobj = json.loads(web.data())
@@ -48,14 +58,85 @@ class Login :
 		else :
 			dicc["resultado"] = False
 
+		web.header('Content-Type', 'application/json')
+		web.header('Access-Control-Allow-Origin',      '*')
+		web.header('Access-Control-Allow-Credentials', 'true')
+		web.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+		web.header("Access-Control-Allow-Methods", "GET, PUT, POST")
+
 		print jobj
 		print dicc
 		return json.dumps(dicc)
 
 class setKeyUser :
+	def OPTIONS (self) :
+		web.header('Access-Control-Allow-Origin',      '*')
+		web.header('Access-Control-Allow-Credentials', 'true')
+		web.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+		web.header("Access-Control-Allow-Methods", "GET, PUT, POST")
+
 	def POST (self) :
 		jobj = json.loads(web.data())
-		controladora.setKeyUser(jobj)
+		web.header('Content-Type', 'application/json')
+		web.header('Access-Control-Allow-Origin',      '*')
+		web.header('Access-Control-Allow-Credentials', 'true')
+		web.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+		web.header("Access-Control-Allow-Methods", "GET, PUT, POST")
+
+		jobj = json.loads(web.data())
+		if controladora.login(jobj) == False or controladora.isKeyUser():
+			dicc = {'resultado':False}
+			return json.dumps(dicc)
+		else:
+			controladora.setKeyUser(jobj)
+			dicc = {'resultado':True}
+			return json.dumps(dicc)
+			
+
+class resetKeyUser :
+	def OPTIONS (self) :
+		web.header('Access-Control-Allow-Origin',      '*')
+		web.header('Access-Control-Allow-Credentials', 'true')
+		web.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+		web.header("Access-Control-Allow-Methods", "GET, PUT, POST")
+
+	def POST (self) :
+		jobj = json.loads(web.data())
+		web.header('Content-Type', 'application/json')
+		web.header('Access-Control-Allow-Origin',      '*')
+		web.header('Access-Control-Allow-Credentials', 'true')
+		web.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+		web.header("Access-Control-Allow-Methods", "GET, PUT, POST")
+
+		if controladora.login(jobj) == False :
+			dicc = {'resultado':False}
+			return json.dumps(dicc)
+		if controladora.sameUser(jobj):
+			controladora.setKeyUser(None)
+			dicc = {'resultado':True}
+			return json.dumps(dicc)
+		else :
+			dicc = {'resultado':False}
+			return json.dumps(dicc)
+
+class getUserKey :
+	def OPTIONS (self) :
+		web.header('Access-Control-Allow-Origin',      '*')
+		web.header('Access-Control-Allow-Credentials', 'true')
+		web.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+		web.header("Access-Control-Allow-Methods", "GET, PUT, POST")
+
+	def POST(self) :
+		web.header('Content-Type', 'application/json')
+		web.header('Access-Control-Allow-Origin',      '*')
+		web.header('Access-Control-Allow-Credentials', 'true')
+		web.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+		web.header("Access-Control-Allow-Methods", "GET, PUT, POST")
+
+		dicc = {"nick":controladora.getKeyUser()}
+		return json.dumps(dicc)
+
+
 
 # class GetUsuario :
 # 	def POST (self) :

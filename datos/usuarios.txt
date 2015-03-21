@@ -1,2 +1,0 @@
-{"localidad": "vall", "name": "waxa", "propios": [{"nombre": "prueba"}, {"nombre": "prueba2"}, {"nombre": "definitivo"}, {"nombre": "pruebas"}], "passwd": "pass", "tags": [], "correo": "mail", "nick": "waxa", "descripcion": "descripcion", "pais": "esp", "otros": []}
-{"localidad": "Valladolid", "name": "Sparta", "propios": [{"nombre": "PartyLocaEnTuBoca"}], "passwd": "asd", "tags": [], "correo": "sparta015@gmail.com", "nick": "Sparta", "descripcion": "descripcion", "pais": "Espa\u00f1a", "otros": []}
