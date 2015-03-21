@@ -1,0 +1,33 @@
+# Necesidades previas
+Para que esta api pueda ser funcional, será necesaria una bases de datos llamada `keydb.db` en introducirla en el directorio ./persistencia 
+
+
+# Login 
+Url: `/login/`
+JSON necesario: `{"nick":"%user_nick", "passwd":"%user_passwd"}`
+JSON devuelto: `{"resultado":"(true|false)"}`
+
+# Coger llave
+Url: `/take/`
+JSON necesario: `{"nick":"%user_nick", "passwd":"%user_passwd"}`
+JSON devuelto : `{"resultado":"(true|false)"}`
+Mensaje interno: 
+    `Nuevo usuario con la llave %user_nick`
+
+# Dejar llave
+Url: `/drop/`
+JSON necesario: `{"nick":"%user_nick", "passwd":"%user_passwd"}`
+JSON devuelto : `{"resultado":"(true|false)"}`
+Mensaje interno: `Nuevo usuario con la llave secretaria`
+
+# Quien tiene la llave?
+Url: `/who/`
+JSON necesario: `None`
+JSON devuelto : `{"nick":"(secretaria|%user_nick)"}`
+Mensaje interno: `La tiene (secretaria|%user_nick)`
+
+En la base de datos solo se encuentra un usuario:
+
+| nick | passwd |
+|:-----|:------:|
+| waxa |  pass  |
