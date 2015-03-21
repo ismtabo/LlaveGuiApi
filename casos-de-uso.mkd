@@ -1,0 +1,40 @@
+Resumen de la aplicación:
+
+##Casos de uso
+* Login
+* Coger llave
+* Dejar llave
+* Cambiar llave
+
+###Login
+Vista: 
+
+* Descripción: típico login con dos cajas de texto para nick y contraseña.
+
+Caso de uso:
+
+1. *Usuario*: introduce nick y contraseña, y envía información al servidor.
+2. *Servidor*: Servidor busca usuario compara contraseñas (introducida y de bd). Devolviendo `true` si el login es correcto y false en caso contrario.
+3. *Usuario*: entra en las demás vistas de la aplicación.
+
+###Coger la llave
+Vista: 
+
+* Descripción: botón de varios estados {llave cogida, llave sin coger, llave cogida por otra persona}, en este caso de uso el botón sólo se considerará disponible cuando la llave este sin coger.
+
+Caso de uso:
+
+1. *Usuario*: pulsa el botón de la llave, esto envía al servidor una petición para cambiar el usuario que ostenta la llave, enviando en la petición su nick.
+2. *Servidor*: servidor revisa el estado de la llave, y cambia el atributo local que controla este registro, devuelve `post_ok` si este proceso se lleva a cabo.
+3. *Usuario*: la vista muestra el botón según el estado en el que la llave la tiene el mismo usuario.
+
+###Dejar la llave
+Vista: 
+
+* Descripción: misma vista de apartado anterior, botón solo disponible en el estado en el que la llave la tenga el mismo usuario.
+
+Caso de uso:
+
+1. *Usuario*: pulsa el botón de la llave, esto envía al servidor una petición para cambiar el usuario que ostenta la llave, enviando en la petición para resetear el registro del usuario.
+2. *Servidor*: servidor revisa el estado de la llave, y cambia el atributo local que controla este registro, devuelve `post_ok` si este proceso se lleva a cabo.
+3. *Usuario*: la vista muestra el botón según el estado en el que la llave no la tiene nadie.
