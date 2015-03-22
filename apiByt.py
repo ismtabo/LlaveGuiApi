@@ -7,6 +7,11 @@ import json
 # import clases
 import persistencia
 
+# Constantes:
+FORMERROR = 'Error en el formulario'
+ALREADYEXISTS = 'Usuario ya existente con ese nick'
+
+render = web.template.render('templates/')
 # controladora = clases.Controlador()
 controladora = persistencia.ControladorDB()
 
@@ -19,6 +24,7 @@ controladora = persistencia.ControladorDB()
 # 	'/getUsrImagen/', 	'GetUsrImagen',
 # )
 urls = (
+	'/','index',
 	'/login/', 'Login',
 	'/take/', 'setKeyUser',
 	'/drop/', 'resetKeyUser',
@@ -39,6 +45,32 @@ app = web.application(urls, globals())
 # 			dicc["error"] = aux[1]
 
 # 		return json.dumps(dicc)
+class index:
+	# TODO --Revisar--
+
+	def getform(self):
+		return web.form.Form(
+	        web.form.Textbox('nick', web.form.notnull, 
+	            description="Nick:"),
+	        web.form.Textbox('passwd', web.form.notnull, 
+	            description="Password:"),
+	        web.form.Button('Submit'),
+	    )
+
+	def GET(self):
+		print 'llega a GET'
+		""" Show page """
+		form = self.getform()
+		print 'creamos formulario'
+		return render.index(form,None)
+
+	def POST(self):
+		""" Add new entry """
+		form = self.getform()
+		if not form.validates():
+			return render.index(form,FORMERROR)
+		result = controladora.newUser(form.d.nick,form.d.passwd)
+		return render.index(form,ALREADYEXISTS if not result else None)
 
 class Login :
 	def OPTIONS (self) :

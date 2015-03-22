@@ -48,3 +48,7 @@ class ControladorDB:
 
 	def sameUser(self,jobj):
 		return self.keyUser == jobj['nick']
+
+	def newUser(self,nick,passwd):
+		# TODO --Revisar--
+		return self.dbApi.newUser(nick,passwd)
