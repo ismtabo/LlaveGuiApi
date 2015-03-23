@@ -10,6 +10,7 @@ import persistencia
 # Constantes:
 FORMERROR = 'Error en el formulario'
 ALREADYEXISTS = 'Usuario ya existente con ese nick'
+ALLOK = 'Usuario registrado'
 
 render = web.template.render('templates/')
 # controladora = clases.Controlador()
@@ -70,7 +71,7 @@ class index:
 		if not form.validates():
 			return render.index(form,FORMERROR)
 		result = controladora.newUser(form.d.nick,form.d.passwd)
-		return render.index(form,ALREADYEXISTS if not result else None)
+		return render.index(form,ALREADYEXISTS if not result else ALLOK)
 
 class Login :
 	def OPTIONS (self) :
