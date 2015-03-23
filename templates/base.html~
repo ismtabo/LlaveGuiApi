@@ -1,0 +1,15 @@
+$def with (content)
+<html>
+<head>
+    <title>$content.title</title>
+    <style type="text/css">
+		body {
+			background-color: #ADD8E6; 
+		}
+	</style>
+</head>
+
+<body>
+$:content
+</body>
+</html>
