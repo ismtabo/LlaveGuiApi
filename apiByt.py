@@ -52,7 +52,7 @@ class index:
 		return web.form.Form(
 	        web.form.Textbox('nick', web.form.notnull, 
 	            description="Nick:"),
-	        web.form.Textbox('passwd', web.form.notnull, 
+	        web.form.Password('passwd', web.form.notnull, 
 	            description="Password:"),
 	        web.form.Button('Submit'),
 	    )
