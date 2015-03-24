@@ -53,3 +53,8 @@ class DBApi :
 			db.close()
 			return False
 
+	def getAll(self):
+		db = lite.connect(LOCALCWD+'/persistencia/keydb.db')
+		c = db.cursor()
+		row = c.execute('SELECT nick FROM users').fetchall()
+		return map(lambda x: Usuario(x[0]),row)

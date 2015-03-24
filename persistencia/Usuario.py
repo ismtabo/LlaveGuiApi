@@ -4,7 +4,7 @@
 class Usuario :
 	
 	#Constructor segun posicion color y tipo
-	def __init__ (self, nick, passwd) :
+	def __init__ (self, nick, passwd="tonto123") :
 		self.nick = nick
 		self.passwd = passwd
 	

@@ -54,3 +54,6 @@ class ControladorDB:
 	def newUser(self,nick,passwd):
 		# TODO --Revisar--
 		return self.dbApi.newUser(nick,passwd)
+
+	def getAll(self):
+		return self.dbApi.getAll()

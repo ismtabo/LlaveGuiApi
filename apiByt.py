@@ -6,6 +6,7 @@ import web
 import json
 # import clases
 import persistencia
+import os
 
 # Constantes:
 FORMERROR = 'Error en el formulario'
@@ -29,7 +30,9 @@ urls = (
 	'/login/', 'Login',
 	'/take/', 'setKeyUser',
 	'/drop/', 'resetKeyUser',
-	'/who/', 'getUserKey'
+	'/who/', 'getUserKey',
+	'/users/', 'allUsers',
+	'/images/(.*)', 'images'
 	)
 
 app = web.application(urls, globals())
@@ -169,6 +172,30 @@ class getUserKey :
 		dicc = {"nick":controladora.getKeyUser()}
 		return json.dumps(dicc)
 
+class allUsers:
+
+	def GET(self):
+		""" Show page """
+		return render.users(controladora.getAll())
+
+class images:
+    def GET(self,name):
+        ext = name.split(".")[-1] # Gather extension
+
+        cType = {
+            "png":"images/png",
+            "jpg":"images/jpeg",
+            "jpeg":"images/jpeg",
+            "gif":"images/gif",
+            "ico":"images/x-icon"            }
+
+        print os.listdir('images/%s'%ext)
+        print name in os.listdir('images/%s'%ext)
+        if name in os.listdir('images/%s'%ext):  # Security
+            web.header("Content-Type", cType[ext]) # Set the Header
+            return open('images/%s/%s'%(ext,name),"rb").read() # Notice 'rb' for reading images
+        else:
+            raise web.notfound()
 
 
 # class GetUsuario :
