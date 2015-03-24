@@ -1,1 +1,3 @@
 *.db
+# Python compiled files
+*.pyc

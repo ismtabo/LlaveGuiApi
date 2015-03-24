@@ -24,6 +24,8 @@ class ControladorDB:
 		# TODO --Falta de implementación--
 		try:
 			print usr.getPasswd(),'-',jobt['passwd']
+			if not usr:
+				return False
 			if usr.getPasswd() == jobt['passwd']:
 				return True
 			else:

@@ -34,7 +34,7 @@ class DBApi :
 		row = c.execute('SELECT nick,passwd FROM users WHERE nick="{}"'.format(nick)).fetchone()
 		print row
 		db.close()
-		return Usuario(row[NICK],row[PASSWD])
+		return None if not row else Usuario(row[NICK],row[PASSWD])
 
 	def newUser(self,nick,passwd):
 		# TODO --Revisar--

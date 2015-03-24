@@ -55,3 +55,9 @@ target/
 
 # Database
 persistencia/*.db
+
+# Nohup
+nohup.out
+
+# Python compile files
+persistencia/*.py[cod]
