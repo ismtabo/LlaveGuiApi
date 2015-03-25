@@ -4,9 +4,11 @@
 import json
 import web
 import config
+import re
 from DBApi import DBApi
 
 DEFAULT = 'secretaria'
+REGEXP = r'(\w+)$'
 
 
 class ControladorDB:
@@ -18,8 +20,14 @@ class ControladorDB:
 	def __init__(self):
 		self.dbApi = DBApi()
 		self.keyUser = DEFAULT
+		self.pattern = re.compile('^(\w+)$')
 
 	def login(self,jobt):
+		match = self.pattern.match(jobt['nick'])
+		print match
+		if match == None:
+			print 'ey you modafuka'
+			return False
 		usr = self.dbApi.getUserByNick(jobt['nick'])
 		# TODO --Falta de implementación--
 		try:

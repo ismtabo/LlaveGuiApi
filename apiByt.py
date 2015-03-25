@@ -33,6 +33,7 @@ urls = (
 	)
 
 app = web.application(urls, globals())
+vuser = web.form.regexp('^(\w+)$','Caracter no alfa numérico en campo dde usuario.')
 
 # class Registro :
 # 	def POST (self) :
@@ -51,7 +52,7 @@ class index:
 
 	def getform(self):
 		return web.form.Form(
-	        web.form.Textbox('nick', web.form.notnull, 
+	        web.form.Textbox('nick',vuser, web.form.notnull, 
 	            description="Nick:"),
 	        web.form.Password('passwd', web.form.notnull, 
 	            description="Password:"),
