@@ -8,6 +8,8 @@ import json
 import persistencia
 import os
 
+web.config.debug = False
+
 # Constantes:
 FORMERROR = 'Error en el formulario'
 ALREADYEXISTS = 'Usuario ya existente con ese nick'
@@ -29,6 +31,7 @@ urls = (
 	'/','index',
 	'/login/', 'Login',
 	'/take/', 'setKeyUser',
+	'/state/', 'setKeyState',
 	'/drop/', 'resetKeyUser',
 	'/who/', 'getUserKey',
 	'/users/', 'allUsers',
@@ -36,6 +39,7 @@ urls = (
 	)
 
 app = web.application(urls, globals())
+vuser = web.form.regexp('^(\w+)$','Caracter no alfa numérico en campo dde usuario.')
 
 # class Registro :
 # 	def POST (self) :
@@ -54,7 +58,7 @@ class index:
 
 	def getform(self):
 		return web.form.Form(
-	        web.form.Textbox('nick', web.form.notnull, 
+	        web.form.Textbox('nick',vuser, web.form.notnull, 
 	            description="Nick:"),
 	        web.form.Password('passwd', web.form.notnull, 
 	            description="Password:"),
@@ -169,7 +173,7 @@ class getUserKey :
 		web.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
 		web.header("Access-Control-Allow-Methods", "GET, PUT, POST")
 
-		dicc = {"nick":controladora.getKeyUser()}
+		dicc = {"nick":controladora.getKeyUser(),"estado":controladora.getKeyState()}
 		return json.dumps(dicc)
 
 class allUsers:
@@ -196,6 +200,31 @@ class images:
             return open('images/%s/%s'%(ext,name),"rb").read() # Notice 'rb' for reading images
         else:
             raise web.notfound()
+
+class setKeyState:
+	def OPTIONS (self) :
+		web.header('Access-Control-Allow-Origin',      '*')
+		web.header('Access-Control-Allow-Credentials', 'true')
+		web.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+		web.header("Access-Control-Allow-Methods", "GET, PUT, POST")
+
+	def POST(self) :
+		web.header('Content-Type', 'application/json')
+		web.header('Access-Control-Allow-Origin',      '*')
+		web.header('Access-Control-Allow-Credentials', 'true')
+		web.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+		web.header("Access-Control-Allow-Methods", "GET, PUT, POST")
+
+		jobj = json.loads(web.data())
+		if controladora.login(jobj) == False or not controladora.isKeyUser():
+			dicc = {'resultado':False}
+			return json.dumps(dicc)
+		else:
+			resultado = controladora.setKeyState(jobj)
+			dicc = {'resultado':resultado}
+			return json.dumps(dicc)
+
+
 
 
 # class GetUsuario :

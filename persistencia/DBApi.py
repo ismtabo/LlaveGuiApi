@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 import web
@@ -32,7 +31,6 @@ class DBApi :
 		c = db.cursor()
 
 		row = c.execute('SELECT nick,passwd FROM users WHERE nick="{}"'.format(nick)).fetchone()
-		print row
 		db.close()
 		return None if not row else Usuario(row[NICK],row[PASSWD])
 
