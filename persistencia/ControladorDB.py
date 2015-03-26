@@ -10,6 +10,8 @@ from DBApi import DBApi
 DEFAULT = 'secretaria'
 REGEXP = r'(\w+)$'
 
+state_range = [0,1,2,3,4,5]
+
 
 class ControladorDB:
 	"""
@@ -20,18 +22,16 @@ class ControladorDB:
 	def __init__(self):
 		self.dbApi = DBApi()
 		self.keyUser = DEFAULT
+		self.keyState = 0
 		self.pattern = re.compile('^(\w+)$')
 
 	def login(self,jobt):
 		match = self.pattern.match(jobt['nick'])
-		print match
 		if match == None:
-			print 'ey you modafuka'
 			return False
 		usr = self.dbApi.getUserByNick(jobt['nick'])
 		# TODO --Falta de implementación--
 		try:
-			print usr.getPasswd(),'-',jobt['passwd']
 			if not usr:
 				return False
 			if usr.getPasswd() == jobt['passwd']:
@@ -39,7 +39,6 @@ class ControladorDB:
 			else:
 				return False
 		except:
-			print 'Algo salió mal'
 			return False
 
 	def setKeyUser(self,jobt):
@@ -47,10 +46,9 @@ class ControladorDB:
 			self.keyUser = jobt['nick']
 		else :
 			self.keyUser = DEFAULT
-		print 'Nuevo usuario con la llave',self.keyUser
+			self.keyState = 0
 
 	def getKeyUser(self):
-		print 'La tiene',self.keyUser
 		return self.keyUser
 	
 	def isKeyUser(self):
@@ -62,3 +60,15 @@ class ControladorDB:
 	def newUser(self,nick,passwd):
 		# TODO --Revisar--
 		return self.dbApi.newUser(nick,passwd)
+
+	def setKeyState(self,jobj):
+		if jobj['nick'] != self.keyUser:
+			return False
+		if not isinstance(jobj['estado'],int) or not jobj['estado'] in state_range:
+			return False
+		else :
+			self.keyState = jobj['estado']
+			return True
+
+	def getKeyState(self):
+		return self.keyState
