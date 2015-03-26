@@ -46,7 +46,7 @@ class ControladorDB:
 			self.keyUser = jobt['nick']
 		else :
 			self.keyUser = DEFAULT
-			self.keyState = 0
+		self.keyState = 0
 
 	def getKeyUser(self):
 		return self.keyUser
