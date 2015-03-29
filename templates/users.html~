@@ -1,0 +1,10 @@
+$def with (users)
+
+$for user in users:
+	<div class="user">
+		<p class="name">$user.nick</p><br><br>
+		<div class="buttons">
+			
+		</div>
+	</div>
+	<hr>

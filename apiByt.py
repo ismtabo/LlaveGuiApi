@@ -1,13 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Api para la gestión por parte del servidor de la aplicación de la llave del GUI.
+El principal objetivo es mantener constancia del usuario que tenga la llave,
+y un sistema de logeo para acceder correctamente al uso de la aplicación mediante una base
+de datos proporcionada por el grupo.
+"""
+
 import sys
 import web
 import json
-# import clases
 import persistencia
 import os
 
+# Configuración del debug de la aplicación
 web.config.debug = False
 
 # Constantes:
@@ -16,17 +23,8 @@ ALREADYEXISTS = 'Usuario ya existente con ese nick'
 ALLOK = 'Usuario registrado'
 
 render = web.template.render('templates/')
-# controladora = clases.Controlador()
 controladora = persistencia.ControladorDB()
 
-# urls = (
-# 	'/registro/', 		'Registro',
-# 	'/login/', 			'Login',
-# 	'/getUsuario/', 	'GetUsuario',
-# 	'/getAllUsr/', 		'GetAllUsr',
-# 	'/setUsrImagen/', 	'SetUsrImagen',
-# 	'/getUsrImagen/', 	'GetUsrImagen',
-# )
 urls = (
 	'/','index',
 	'/login/', 'Login',
@@ -34,8 +32,9 @@ urls = (
 	'/state/', 'setKeyState',
 	'/drop/', 'resetKeyUser',
 	'/who/', 'getUserKey',
-	'/users/', 'allUsers',
-	'/images/(.*)', 'images'
+	'/users/', 'getAllUsers',
+	'/images/(.*)', 'getImages',
+	'/(.*).css','getCss'
 	)
 
 app = web.application(urls, globals())
@@ -176,31 +175,6 @@ class getUserKey :
 		dicc = {"nick":controladora.getKeyUser(),"estado":controladora.getKeyState()}
 		return json.dumps(dicc)
 
-class allUsers:
-
-	def GET(self):
-		""" Show page """
-		return render.users(controladora.getAll())
-
-class images:
-    def GET(self,name):
-        ext = name.split(".")[-1] # Gather extension
-
-        cType = {
-            "png":"images/png",
-            "jpg":"images/jpeg",
-            "jpeg":"images/jpeg",
-            "gif":"images/gif",
-            "ico":"images/x-icon"            }
-
-        print os.listdir('images/%s'%ext)
-        print name in os.listdir('images/%s'%ext)
-        if name in os.listdir('images/%s'%ext):  # Security
-            web.header("Content-Type", cType[ext]) # Set the Header
-            return open('images/%s/%s'%(ext,name),"rb").read() # Notice 'rb' for reading images
-        else:
-            raise web.notfound()
-
 class setKeyState:
 	def OPTIONS (self) :
 		web.header('Access-Control-Allow-Origin',      '*')
@@ -224,8 +198,44 @@ class setKeyState:
 			dicc = {'resultado':resultado}
 			return json.dumps(dicc)
 
+class getAllUsers:
+
+	def GET(self):
+		""" Show page """
+		return render.users(controladora.getAll())
 
 
+"""
+Otras opciones básicas de obtención de estilos e imagenes
+"""
+class getImages:
+    def GET(self,name):
+        ext = name.split(".")[-1] # Gather extension
+
+        cType = {
+            "png":"images/png",
+            "jpg":"images/jpeg",
+            "jpeg":"images/jpeg",
+            "gif":"images/gif",
+            "ico":"images/x-icon"            }
+
+        print os.listdir('images/%s'%ext)
+        print name in os.listdir('images/%s'%ext)
+        if name in os.listdir('images/%s'%ext):  # Security
+            web.header("Content-Type", cType[ext]) # Set the Header
+            return open('images/%s/%s'%(ext,name),"rb").read() # Notice 'rb' for reading images
+        else:
+            raise web.notfound()
+
+class getCss:
+    def GET(self,name):
+    	name += '.css'
+    	print 'Hola css',name
+        if name in os.listdir('templates/css'):  # Security
+            web.header("Content-Type", 'css') # Set the Header
+            return open('templates/css/%s'%name,"rb").read() # Notice 'rb' for reading images
+        else:
+            raise web.notfound()
 
 # class GetUsuario :
 # 	def POST (self) :

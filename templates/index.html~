@@ -1,27 +1,13 @@
 $def with (form,mensaje)
-<style type="text/css">
-.wrong {
-	font-family: courier, fixed, monospace;
-	color: #FF0000;
-}
-.formulario{
-	height: auto;
-	width: auto;
-	min-height: 315px;
-	min-width: 305px;
-	margin-top: 10%;
-	margin-left: 20%;
-	margin-right: 20%;
-	border: 1px solid black; 
-	border-radius: 10px;
-	box-shadow: 5px 5px 2px #888888;
-	background-color: #DBF4FC; 
-}
-</style>
+<head>
+<title>Registro temporal AppGui</title>
+<link href = "style.css" rel = "stylesheet">
+</head>
+<body>
 <div align="center" class="formulario">
 <h1>Registro temporal </h1>
 <h2>App LlaveGUI</h2>
-<a href="images/logo.png"><img src="images/logothumbnail.jpeg" width="104" height="97"></a>
+<a href="images/logo.png"><img src="images/logo.png" width="104" height="97"></a>
 <br><br>
 <form action="" method="post">
 $:form.render()
@@ -29,3 +15,4 @@ $:form.render()
 
 $if mensaje:
 	<p class="wrong">$:mensaje</p></div>
+</body>

@@ -1,7 +1,6 @@
 # Necesidades previas
 Para que esta api pueda ser funcional, será necesaria una bases de datos llamada `keydb.db` en introducirla en el directorio ./persistencia 
 
-
 # Login 
 Url: `/login/`
 JSON necesario: `{"nick":"%user_nick", "passwd":"%user_passwd"}`
@@ -11,8 +10,7 @@ JSON devuelto: `{"resultado":"(true|false)"}`
 Url: `/take/`
 JSON necesario: `{"nick":"%user_nick", "passwd":"%user_passwd"}`
 JSON devuelto : `{"resultado":"(true|false)"}`
-Mensaje interno: 
-    `Nuevo usuario con la llave %user_nick`
+Mensaje interno: `Nuevo usuario con la llave %user_nick`
 
 # Dejar llave
 Url: `/drop/`
@@ -20,14 +18,13 @@ JSON necesario: `{"nick":"%user_nick", "passwd":"%user_passwd"}`
 JSON devuelto : `{"resultado":"(true|false)"}`
 Mensaje interno: `Nuevo usuario con la llave secretaria`
 
+# Cambiar estado de la llave
+Url: `/state/`
+JSON necesario: `{"nick":"%user_nick", "passwd":"%user_passwd", "estado":[0-5]}`
+JSON devuelto : `{"resultado":"(true|false)"}`
+
 # Quien tiene la llave?
 Url: `/who/`
 JSON necesario: `None`
-JSON devuelto : `{"nick":"(secretaria|%user_nick)"}`
+JSON devuelto : `{"nick":"(secretaria|%user_nick)", "estado":[0-5]}`
 Mensaje interno: `La tiene (secretaria|%user_nick)`
-
-En la base de datos solo se encuentra un usuario:
-
-| nick | passwd |
-|:-----|:------:|
-| waxa |  pass  |
