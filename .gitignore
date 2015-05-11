@@ -61,3 +61,6 @@ nohup.out
 
 # Python compile files
 persistencia/*.py[cod]
+
+# Other
+.idea/
