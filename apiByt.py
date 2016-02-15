@@ -27,14 +27,17 @@ controladora = persistencia.ControladorDB()
 
 urls = (
 	'/','index',
+	# Key Users System
 	'/login/', 'Login',
 	'/take/', 'setKeyUser',
 	'/state/', 'setKeyState',
 	'/drop/', 'resetKeyUser',
 	'/who/', 'getUserKey',
+	# Admin System
+	'/adminlog/', 'adminLogin',
 	'/users/', 'getAllUsers',
 	'/images/(.*)', 'getImages',
-	'/(.*).css','getCss'
+	'/.*/css/(.*).css','getCss'
 	)
 
 app = web.application(urls, globals())
